@@ -105,8 +105,3 @@ tests/rustdoc-gui/src/**.lock
 ## direnv
 /.envrc
 /.direnv/
-
-## nix
-/flake.nix
-flake.lock
-/default.nix
