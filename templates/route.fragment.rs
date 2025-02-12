@@ -1,0 +1,2 @@
+
+    .route("{{path}}", {{method}}({{handler}}))

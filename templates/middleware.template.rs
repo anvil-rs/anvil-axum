@@ -11,10 +11,10 @@ use std::task::{Context, Poll};
 struct {{layer_name|pascalcase}};
 
 impl<S> Layer<S> for {{layer_name|pascalcase}} {
-    type Service = MyMiddleware<S>;
+    type Service = {{middleware_name|pascalcase}}<S>;
 
     fn layer(&self, inner: S) -> Self::Service {
-        MyMiddleware { inner }
+        {{middleware_name|pascalcase}} { inner }
     }
 }
 

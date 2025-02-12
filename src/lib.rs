@@ -1,44 +1,44 @@
-use askama::Template;
-use clap::{Args, ValueEnum};
+pub mod method;
+
 use anvil::filters;
+use askama::Template;
+use clap::Args;
+use method::Method;
 
 #[derive(Template, Args)]
-#[template(path="handler.fragment.rs", escape="none")]
-struct AxumHandler {
-    name: String 
+#[template(path = "handler.fragment.rs", escape = "none")]
+pub struct AxumHandler {
+    pub name: String,
 }
 
 #[derive(Template, Args)]
-#[template(path="middleware.rs", escape="none")]
-struct Middleware {
-    layer_name:  String,
-    middleware_name: String,
+#[template(path = "middleware.template.rs", escape = "none")]
+pub struct Middleware {
+    pub layer_name: String,
+    pub middleware_name: String,
 }
 
 #[derive(Template, Args)]
-#[template(path="middleware_fn.rs", escape="none")]
-struct MiddlewareFn{
-    name: String 
+#[template(path = "middleware_fn.template.rs", escape = "none")]
+pub struct MiddlewareFn {
+    pub name: String,
 }
 
 #[derive(Template, Args)]
-#[template(path="route.fragment.rs", escape="none")]
-struct Route {
+#[template(path = "route.fragment.rs", escape = "none")]
+pub struct Route {
     #[arg(value_enum)]
-    method: Method,
-    path: String,
-    handler: String
+    pub method: Method,
+    pub path: String,
+    pub handler: String,
 }
 
-#[derive(ValueEnum, Debug, Copy)]
-enum Method {
-    Get,
-    Post,
-    Put,
-    Delete,
-    Patch,
-    Options,
-    Head,
-    Connect,
-    Trace,
+impl Default for Route {
+    fn default() -> Self {
+        Self {
+            method: Method::Get,
+            path: "/index".into(),
+            handler: "unimplemented!()".into(),
+        }
+    }
 }
